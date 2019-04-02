@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rxiu.security.web.mapper.AuthorityMapper">
+    <resultMap id="BaseResultMap" type="com.rxiu.security.web.model.Authority">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="url" property="url" />
+        <result column="method" property="method" />
+    </resultMap>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from security_authority
+    </select>
+
+    <select id="getAuthorityByUserId" resultMap="BaseResultMap" parameterType="int">
+        select * from security_authority a
+        left join security_role_auth ra on ra.auth_id = a.id
+        left join security_role r on r.id = ra.role_id
+        left join security_user_role ur on ur.role_id = r.id
+        where ur.user_id = ${id}
+    </select>
+
+    <select id="getAllByStream" resultMap="BaseResultMap" fetchSize="1000">
+        select * from security_authority
+    </select>
+</mapper>
