@@ -20,5 +20,6 @@
         <module>trickle-security</module>
         <module>trickle-gateway</module>
         <module>trickle-flume</module>
+        <module>trickle-email</module>
     </modules>
 </project>

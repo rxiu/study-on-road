@@ -32,4 +32,9 @@
     使用flume 采集FTP数据到本地或者HDFS
     启动junit测试
     或者结合Java Service Wrapper测试
-    jsw工具链接: https://pan.baidu.com/s/1Mg483tA0USYqFZ_bNV30tg 提取码: ejda 
+    jsw工具链接: https://pan.baidu.com/s/1Mg483tA0USYqFZ_bNV30tg 提取码: ejda
+    
+**2019/04/03**
+    
+    spring boot 整合 email
+    junit测试
