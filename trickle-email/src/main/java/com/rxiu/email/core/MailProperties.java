@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 @Component
 @ConfigurationProperties(prefix = "spring.mail")

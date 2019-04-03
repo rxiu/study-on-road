@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2018/08/27.
  **/
 public class MultiPipelineChannel extends BasicChannelSemantics {

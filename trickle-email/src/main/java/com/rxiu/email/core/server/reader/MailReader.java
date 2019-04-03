@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 @Component
 public class MailReader {

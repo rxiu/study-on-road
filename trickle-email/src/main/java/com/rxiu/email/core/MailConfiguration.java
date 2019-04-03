@@ -11,7 +11,7 @@ import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 @Configuration
 public class MailConfiguration {

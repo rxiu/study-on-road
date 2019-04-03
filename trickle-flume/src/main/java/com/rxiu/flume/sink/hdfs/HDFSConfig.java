@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by shenyuhang on 2017/9/22.
+ * Created by rxiu on 2017/9/22.
  */
 public class HDFSConfig {
 

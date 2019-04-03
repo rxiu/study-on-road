@@ -3,7 +3,7 @@ package com.rxiu.email.core;
 import java.io.Serializable;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 public class EMail implements Serializable {
 

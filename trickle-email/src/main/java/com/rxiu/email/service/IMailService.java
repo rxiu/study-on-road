@@ -4,7 +4,7 @@ package com.rxiu.email.service;
 import com.rxiu.email.core.EMail;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 public interface IMailService {
 

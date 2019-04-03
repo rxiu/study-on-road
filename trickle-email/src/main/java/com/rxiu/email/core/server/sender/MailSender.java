@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 @Component
 public class MailSender {

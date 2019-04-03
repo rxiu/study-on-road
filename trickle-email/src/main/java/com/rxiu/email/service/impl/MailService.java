@@ -6,7 +6,7 @@ import com.rxiu.email.service.IMailService;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by shenyuhang on 2018/3/13.
+ * Created by rxiu on 2018/3/13.
  */
 @Service
 public class MailService implements IMailService {
