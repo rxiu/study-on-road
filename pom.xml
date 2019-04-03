@@ -19,5 +19,6 @@
         <module>trickle-elasticsearch</module>
         <module>trickle-security</module>
         <module>trickle-gateway</module>
+        <module>trickle-flume</module>
     </modules>
 </project>
