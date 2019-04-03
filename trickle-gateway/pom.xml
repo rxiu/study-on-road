@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.rxiu</groupId>
+    <artifactId>trickle-gateway</artifactId>
+    <version>1.0</version>
+    <name>trickle-gateway</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+            <version>1.4.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>1.2.2.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    <archive>
+                        <!--生成的jar中，不要包含pom.xml和pom.properties这两个文件-->
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <!-- Manifest specific configuration -->
+                        <manifest>
+                            <!--是否要把第三方jar放到manifest的classpath中-->
+                            <addClasspath>false</addClasspath>
+                            <!--生成的manifest中classpath的前缀，因为要把第三方jar放到lib目录下，所以classpath的前缀是lib/-->
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <!--过滤掉不希望包含在jar中的文件-->
+                    <excludes>
+                        <exclude>assembly</exclude>
+                        <exclude>assembly/**</exclude>
+                        <exclude>bin</exclude>
+                        <exclude>bin/**</exclude>
+                        <exclude>*.yml</exclude>
+                        <exclude>*.xml</exclude>
+                        <exclude>conf/**</exclude>
+                        <exclude>conf</exclude>
+                        <exclude>script</exclude>
+                        <exclude>script/**</exclude>
+                        <exclude>sql</exclude>
+                        <exclude>sql/**</exclude>
+                        <exclude>*.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeScope>provided</excludeScope>
+                            <excludeArtifactIds>junit</excludeArtifactIds>
+                            <excludeTransitive>false</excludeTransitive>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <!-- The configuration of the plugin -->
+                <configuration>
+                    <!-- Specifies the configuration file of the assembly plugin -->
+                    <descriptors>
+                        <descriptor>${basedir}/src/main/resources/assembly/bin.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
