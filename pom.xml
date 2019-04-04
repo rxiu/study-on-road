@@ -21,5 +21,6 @@
         <module>trickle-gateway</module>
         <module>trickle-flume</module>
         <module>trickle-email</module>
+        <module>trickle-wechat</module>
     </modules>
 </project>

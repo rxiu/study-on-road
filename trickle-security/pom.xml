@@ -99,19 +99,12 @@
                     </archive>
                     <!--过滤掉不希望包含在jar中的文件-->
                     <excludes>
-                        <exclude>assembly</exclude>
                         <exclude>assembly/**</exclude>
-                        <exclude>bin</exclude>
                         <exclude>bin/**</exclude>
-                        <exclude>*.yml</exclude>
-                        <exclude>*.xml</exclude>
                         <exclude>conf/**</exclude>
-                        <exclude>conf</exclude>
-                        <exclude>script</exclude>
                         <exclude>script/**</exclude>
-                        <exclude>sql</exclude>
                         <exclude>sql/**</exclude>
-                        <exclude>*.properties</exclude>
+                        <exclude>*.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
