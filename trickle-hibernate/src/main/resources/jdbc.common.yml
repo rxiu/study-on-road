@@ -1,0 +1,14 @@
+initialSize: 1
+testWhileIdle: false
+testOnBorrow: false
+testOnReturn: false
+minIdle: 100
+maxActive: 888
+maxWait: 60000
+poolPreparedStatements: true
+maxPoolPreparedStatementPerConnectionSize: 50
+removeAbandoned: true
+removeAbandonedTimeout: 7200
+timeBetweenEvictionRunsMillis: 600000
+minEvictableIdleTimeMillis: 600000
+logAbandoned: false

@@ -38,3 +38,11 @@
     
     spring boot 整合 email
     junit测试
+    
+**2019/04/08**
+
+    hibernate jdbc读写数据
+    由于maven提供的sqlserver4依赖 不兼容sqlserver2000版
+    在官网找了个兼容2000版及以上版本的sqlserver驱动
+    驱动包在resources/lib下
+    启动junit测试

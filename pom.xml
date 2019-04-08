@@ -22,5 +22,6 @@
         <module>trickle-flume</module>
         <module>trickle-email</module>
         <module>trickle-wechat</module>
+        <module>trickle-hibernate</module>
     </modules>
 </project>
