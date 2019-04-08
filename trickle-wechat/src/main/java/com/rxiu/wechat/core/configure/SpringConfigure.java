@@ -1,6 +1,8 @@
 package com.rxiu.wechat.core.configure;
 
 import com.rxiu.wechat.core.PropertyPlaceHolder;
+import com.rxiu.wechat.core.storage.MemoryStorage;
+import com.rxiu.wechat.core.storage.Storage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -15,7 +17,7 @@ import java.util.List;
  **/
 @Configuration
 public class SpringConfigure {
-    final List<Resource> resourceList = new ArrayList<Resource>();
+    final List<Resource> resourceList = new ArrayList<>();
 
     @Bean
     public PropertyPlaceHolder property() {
@@ -24,5 +26,10 @@ public class SpringConfigure {
         resourceList.add(resource);
         placeHolder.setLocations(resourceList.toArray(new Resource[]{}));
         return placeHolder;
+    }
+
+    @Bean
+    public Storage storage() {
+        return new MemoryStorage();
     }
 }

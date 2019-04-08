@@ -1,7 +1,7 @@
 package com.rxiu.wechat.core.dispatcher;
 
 import com.rxiu.wechat.common.Constant;
-import com.rxiu.wechat.common.util.WeChatUtil;
+import com.rxiu.wechat.common.util.XmlUtil;
 import com.rxiu.wechat.core.message.MessageType;
 import com.rxiu.wechat.core.message.response.NewsMessage;
 import com.rxiu.wechat.core.message.response.TextMessage;
@@ -25,16 +25,16 @@ public class EventDispatcher extends AbstractDispatcher {
         LOGGER.info("事件类型：{}", event);
 
         if (MessageType.Event.subscribe.name().equals(event)) {
-            return WeChatUtil.MessageTool.messageToXml(new TextMessage(to, from, "感谢关注"));
+            return XmlUtil.messageToXml(new TextMessage(to, from, "感谢关注"));
         }
         if (MessageType.Event.unsubscribe.name().equals(event)) {
-            return WeChatUtil.MessageTool.messageToXml(new TextMessage(to, from, "取消关注"));
+            return XmlUtil.messageToXml(new TextMessage(to, from, "取消关注"));
         }
         if (MessageType.Event.SCAN.name().equals(event)) {
-            return WeChatUtil.MessageTool.messageToXml(new TextMessage(to, from, "触发扫描"));
+            return XmlUtil.messageToXml(new TextMessage(to, from, "触发扫描"));
         }
         if (MessageType.Event.LOCATION.name().equals(event)) {
-            return WeChatUtil.MessageTool.messageToXml(new TextMessage(to, from, "定位"));
+            return XmlUtil.messageToXml(new TextMessage(to, from, "定位"));
         }
         if (MessageType.Event.CLICK.name().equals(event)) {
             NewsMessage message = new NewsMessage();
@@ -67,13 +67,12 @@ public class EventDispatcher extends AbstractDispatcher {
 
             message.setArticleCount(list.size());
             message.setArticles(list);
-            return WeChatUtil.MessageTool.messageToXml(message,
-                    new WeChatUtil.MessageTool.Node()
-                            .push("item", NewsMessage.Article.class)
+            return XmlUtil.messageToXml(message,
+                    new XmlUtil.Node().push("item", NewsMessage.Article.class)
             );
         }
         if (MessageType.Event.VIEW.name().equals(event)) {
-            return WeChatUtil.MessageTool.messageToXml(new TextMessage(to, from, "视图"));
+            return XmlUtil.messageToXml(new TextMessage(to, from, "视图"));
         }
         return null;
     }

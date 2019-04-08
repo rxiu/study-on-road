@@ -3,16 +3,19 @@ package com.rxiu.wechat.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
-import com.rxiu.wechat.common.util.WeChatUtil;
+import com.rxiu.wechat.common.util.HttpUtil;
+import com.rxiu.wechat.core.PropertyPlaceHolder;
 import com.rxiu.wechat.core.compent.Menu;
-import com.rxiu.wechat.core.compent.button.Button;
-import com.rxiu.wechat.core.compent.button.ClickButton;
-import com.rxiu.wechat.core.compent.button.ViewButton;
+import com.rxiu.wechat.core.storage.Storage;
 import com.rxiu.wechat.service.IMenuService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 
 /**
  * @author rxiu
@@ -21,41 +24,11 @@ import java.io.InputStream;
 @Service
 public class MenuServiceImpl implements IMenuService {
 
-    public Menu menuInstance(Menu menu) {
-        //创建点击一级菜单
-        ClickButton button11 = new ClickButton();
-        button11.setName("点击按钮");
-        button11.setKey("11");
-        button11.setType(Button.ButtonType.click.name());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuServiceImpl.class);
+    private static String menuCreateUrl = PropertyPlaceHolder.getString("wechat.menu.create.url");
 
-        //创建跳转型一级菜单
-        ViewButton button21 = new ViewButton();
-        button21.setName("外联平台");
-        button21.setType(Button.ButtonType.view.name());
-        button21.setUrl("http://dashboard.tunnel.echomod.cn/wechat/auth");
-
-        //创建其他类型的菜单与click型用法一致
-        ClickButton button31 = new ClickButton();
-        button31.setName("拍照发图");
-        button31.setType(Button.ButtonType.pic_photo_or_album.name());
-        button31.setKey("31");
-
-        ClickButton button32 = new ClickButton();
-        button32.setName("发送位置");
-        button32.setKey("32");
-        button32.setType(Button.ButtonType.location_select.name());
-
-        //封装到一级菜单
-        Button button = new Button();
-        button.setName("一级菜单");
-        button.setType(Button.ButtonType.click.name());
-        button.setSub_button(new Button[]{button31,button32});
-
-        //封装菜单
-        menu.setButton(new Button[]{button11,button21,button});
-        return menu;
-
-    }
+    @Autowired
+    Storage storage;
 
     @Override
     public int createMenu() {
@@ -79,6 +52,23 @@ public class MenuServiceImpl implements IMenuService {
         } catch (IOException e) {
             throw new RuntimeException("微信菜单配置文件读取失败",e);
         }
-        return WeChatUtil.MenuTool.createMenu(json);
+        return createMenu(json);
+    }
+
+    public int createMenu(Object menu) {
+        String json = "";
+        if (menu instanceof Menu) {
+            json = JSONObject.toJSONString(menu);
+        }
+        if (menu instanceof String) {
+            json = menu.toString();
+        }
+
+        String accessToken = storage.getAccessToken();
+
+        String url = HttpUtil.buildUrl(menuCreateUrl, Collections.singletonMap("access_token", accessToken));
+        String result = HttpUtil.sendPostBuffer(url, json);
+        LOGGER.info("创建微信菜单: {}", result);
+        return Strings.isNullOrEmpty(result) ? Integer.MIN_VALUE : JSONObject.parseObject(result).getInteger("errcode");
     }
 }

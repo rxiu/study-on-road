@@ -1,6 +1,7 @@
 package com.rxiu.wechat.controller;
 
-import com.rxiu.wechat.common.util.WeChatUtil;
+import com.rxiu.wechat.common.util.SignUtil;
+import com.rxiu.wechat.common.util.XmlUtil;
 import com.rxiu.wechat.core.dispatcher.Dispatcher;
 import com.rxiu.wechat.core.dispatcher.DispatcherBuilder;
 import com.rxiu.wechat.service.IMenuService;
@@ -39,7 +40,7 @@ public class WeChatController {
                       @RequestParam(value = "nonce") String nonce,
                       @RequestParam(value = "echostr") String echostr) {
         try {
-            if (WeChatUtil.SignatureTool.checkSignature(signature, timestamp, nonce)) {
+            if (SignUtil.checkSignature(signature, timestamp, nonce)) {
                 PrintWriter out = response.getWriter();
                 out.write(echostr);
                 out.flush();
@@ -55,7 +56,7 @@ public class WeChatController {
     @RequestMapping(value = "index", method = RequestMethod.POST)
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
-            Map<String, String> map = WeChatUtil.MessageTool.parseXml(request);
+            Map<String, String> map = XmlUtil.parseXml(request);
 
             Dispatcher dispatcher = DispatcherBuilder.configure(map).build();
 
