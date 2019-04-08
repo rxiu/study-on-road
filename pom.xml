@@ -23,5 +23,6 @@
         <module>trickle-email</module>
         <module>trickle-wechat</module>
         <module>trickle-hibernate</module>
+        <module>trickle-zabbix</module>
     </modules>
 </project>

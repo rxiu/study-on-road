@@ -46,3 +46,8 @@
     在官网找了个兼容2000版及以上版本的sqlserver驱动
     驱动包在resources/lib下
     启动junit测试
+
+**2019/04/08**
+
+    zabbix api
+    junit测试
