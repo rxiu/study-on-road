@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.rxiu.wechat.common.util.WeChatUtil;
-import com.rxiu.wechat.compent.Menu;
-import com.rxiu.wechat.compent.button.Button;
-import com.rxiu.wechat.compent.button.ClickButton;
-import com.rxiu.wechat.compent.button.ViewButton;
+import com.rxiu.wechat.core.compent.Menu;
+import com.rxiu.wechat.core.compent.button.Button;
+import com.rxiu.wechat.core.compent.button.ClickButton;
+import com.rxiu.wechat.core.compent.button.ViewButton;
 import com.rxiu.wechat.service.IMenuService;
 import org.springframework.stereotype.Service;
 

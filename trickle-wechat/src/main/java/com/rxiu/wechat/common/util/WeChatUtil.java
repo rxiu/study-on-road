@@ -2,8 +2,10 @@ package com.rxiu.wechat.common.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
-import com.rxiu.wechat.compent.Menu;
+import com.rxiu.wechat.core.compent.Menu;
 import com.rxiu.wechat.core.PropertyPlaceHolder;
+import com.rxiu.wechat.core.storage.MemoryStorage;
+import com.rxiu.wechat.core.storage.Storage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -30,44 +32,14 @@ public class WeChatUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeChatUtil.class);
 
-    /**
-     * token工具类
-     */
-    public static class TokenTool {
-        private static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
-        private static final long ACCESS_TOKEN_EXPIRE = 2 * 60 * 1000;
+    private static Storage storage;
 
-        private static String accessTokenUrl = PropertyPlaceHolder.getString("wechat.access-token.url");
+    public static void init(Storage storage) {
+        WeChatUtil.storage = storage;
+    }
 
-        private static String getAccessTokenUrl() {
-            accessTokenUrl = accessTokenUrl
-                    .replace("${wechat.app-id}", PropertyPlaceHolder.getString("wechat.app-id"))
-                    .replace("${wechat.app-secret}", PropertyPlaceHolder.getString("wechat.app-secret"));
-            return accessTokenUrl;
-        }
-
-        public static String getAccessToken() {
-            String token = HttpUtil.sendGet(getAccessTokenUrl(), null);
-            LOGGER.info("获取access token: {}", token);
-            if (!Strings.isNullOrEmpty(token)) {
-                String accessToken = JSONObject.parseObject(token).getString("access_token");
-                if (!Strings.isNullOrEmpty(accessToken)) {
-                    RedisUtil.builder().set(ACCESS_TOKEN_KEY, accessToken, ACCESS_TOKEN_EXPIRE);
-                    return accessToken;
-                }
-            }
-            return null;
-        }
-
-        public static String getAccessTokenFromRedis() {
-            String accessToken = RedisUtil.builder().get(ACCESS_TOKEN_KEY);
-            if (Strings.isNullOrEmpty(accessToken)) {
-                accessToken = getAccessToken();
-                if (Strings.isNullOrEmpty(accessToken)) return null;
-                RedisUtil.builder().set(ACCESS_TOKEN_KEY, accessToken, ACCESS_TOKEN_EXPIRE);
-            }
-            return accessToken;
-        }
+    public static Storage getStorage() {
+        return storage == null ? new MemoryStorage() : storage;
     }
 
     /**
@@ -210,7 +182,7 @@ public class WeChatUtil {
             if (menu instanceof String) {
                 json = menu.toString();
             }
-            String accessToken = WeChatUtil.TokenTool.getAccessTokenFromRedis();
+            String accessToken = getStorage().getAccessToken();
 
             String url = HttpUtil.buildUrl(menuCreateUrl, Collections.singletonMap("access_token", accessToken));
             String result = HttpUtil.sendPostBuffer(url, json);

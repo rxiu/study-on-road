@@ -35,7 +35,7 @@ public class HttpUtil {
 
     public static String sendGet(String reqUrl, Map<String, String> params) {
         LOGGER.info("请求地址：{}", reqUrl);
-        LOGGER.info("请求参数：{}", params.toString());
+        LOGGER.info("请求参数：{}", params);
         InputStream inputStream = null;
         HttpGet request = new HttpGet();
         try {
@@ -69,7 +69,7 @@ public class HttpUtil {
 
     public static String sendPost(String reqUrl, Map<String, String> params) {
         LOGGER.info("请求地址：{}", reqUrl);
-        LOGGER.info("请求参数：{}", params.toString());
+        LOGGER.info("请求参数：{}", params);
         try {
             Set<String> set = params.keySet();
             List<NameValuePair> list = new ArrayList<NameValuePair>();

@@ -1,8 +1,8 @@
 package com.rxiu.wechat.controller;
 
 import com.rxiu.wechat.common.util.WeChatUtil;
-import com.rxiu.wechat.dispatcher.Dispatcher;
-import com.rxiu.wechat.dispatcher.DispatcherBuilder;
+import com.rxiu.wechat.core.dispatcher.Dispatcher;
+import com.rxiu.wechat.core.dispatcher.DispatcherBuilder;
 import com.rxiu.wechat.service.IMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
