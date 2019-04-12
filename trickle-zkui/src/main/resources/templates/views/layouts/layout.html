@@ -1,0 +1,36 @@
+<#macro page>
+<html>
+<head>
+    <#include "../common/include.html"/>
+    <style>
+        .layui-tab-content {
+            padding: 0;/*layui-tab-content:默认有padding: 10px;的值，因为iframe的绝对定位脱离文档流，所以会存在20px的空白空间*/
+        }
+        .show-frame {
+            top: 50px!important;
+            /*默认.layui-layout-admin .layui-body {
+                top: 60px;
+                bottom: 44px;
+            }*/
+            overflow: hidden;/*消除浏览器最右边的滚动条*/
+        }
+        .frame {
+            position: absolute;
+            padding: 10px;/*与layui-footer隔开一段距离*/
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="main_body">
+    <div class="layui-layout layui-layout-admin">
+        <#include "../common/header.html"/>
+        <!-- Content starts -->
+        <#nested>
+        <!-- Content ends -->
+        <!-- 底部 -->
+        <#include '../common/footer.html'>
+    </div>
+</body>
+</html>
+</#macro>

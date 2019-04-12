@@ -24,5 +24,6 @@
         <module>trickle-wechat</module>
         <module>trickle-hibernate</module>
         <module>trickle-zabbix</module>
+        <module>trickle-tools</module>
     </modules>
 </project>

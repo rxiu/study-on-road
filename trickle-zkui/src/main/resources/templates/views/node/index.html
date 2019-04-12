@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <#include '../common/include.html'>
+    <link href="css/src/node.css"  type="text/css" media="screen" rel="stylesheet">
+    <base href="${basePath!}/">
+</head>
+
+<body style="overflow: hidden;">
+<div  id="setpermisdiv" class="layui-fluid" >
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md4">
+            <div class="layui-tab node-tab-border">
+                <ul class="layui-tab-title node-tab-title">
+                    <li>节点展示</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-col-md12">
+                            集群
+                        </div>
+                        <div class="layui-col-md12" style="overflow: auto; min-height: 300px;">
+                            <div id="treeDemo" class="ztree" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md8">
+            <div class="layui-tab node-tab-border">
+                <ul class="layui-tab-title node-tab-title">
+                    <li>节点详情</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <form class="layui-form" action="" id="addeditformid">
+                            <label hidden="true" id="editlabelid"></label>
+                            <input id="editid" name="id" value="" hidden/>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">集群名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="name" name="name" disabled class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">集群配置</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="bz" name="bz" disabled class="layui-input">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var zTreeObj1, layerid, loading;
+    layui.use(['layer', 'element', 'form','table'], function(){
+        var layer = layui.layer
+            ,form = layui.form
+            ,$ = layui.$
+            ,laytpl = layui.laytpl
+            ,table = layui.table;
+        pageInit();
+    });
+
+
+    function pageInit() {
+        loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        var setting = {
+            callback: {
+                onClick:function() {
+
+                }
+            }
+        };
+
+        $.ajax({
+            type: "POST",
+            url:'node',
+            cache: true,
+            error: function(request) {
+                layer.closeAll('loading');
+                layer.alert("与服务器连接失败/(ㄒoㄒ)/~~");
+            },
+            success: function(data) {
+                zNodes=data;
+                zTreeObj1 = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                $('#treeDemo').show();
+                layer.closeAll('loading');
+            }
+        });
+    }
+
+</script>
+</body>
