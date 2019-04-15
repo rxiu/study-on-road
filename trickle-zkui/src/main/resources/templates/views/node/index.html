@@ -72,27 +72,46 @@
         loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
         var setting = {
             callback: {
-                onClick:function() {
-
+                onClick:function(event, treeId, treeNode, clickFlag) {
+                    getNode(treeNode['path']);
                 }
             }
         };
 
-        $.ajax({
-            type: "POST",
-            url:'node',
-            cache: true,
+        loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        var req = new Request("node/tree");
+        req.post({
+            data: {zkNode: zkNode},
+            cache: false,
             error: function(request) {
                 layer.closeAll('loading');
                 layer.alert("与服务器连接失败/(ㄒoㄒ)/~~");
             },
             success: function(data) {
-                zNodes=data;
+                zNodes = data.data;
                 zTreeObj1 = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
                 $('#treeDemo').show();
                 layer.closeAll('loading');
             }
-        });
+        })
+    }
+
+    function getNode(zkNode) {
+        loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        var req = new Request("node/info");
+        req.post({
+            data: {zkNode: zkNode},
+            cache: false,
+            error: function(request) {
+                layer.closeAll('loading');
+                layer.alert("与服务器连接失败/(ㄒoㄒ)/~~");
+            },
+            success: function(data) {
+                zNodes = data.data;
+                console.log(zNodes)
+                layer.closeAll('loading');
+            }
+        })
     }
 
 </script>

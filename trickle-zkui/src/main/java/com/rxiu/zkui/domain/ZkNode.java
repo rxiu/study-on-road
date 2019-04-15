@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/11
  */
 public class ZkNode implements Serializable {

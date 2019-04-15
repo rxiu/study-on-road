@@ -1,7 +1,7 @@
 package com.rxiu.zkui.core.security;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/12
  */
 public class Role {

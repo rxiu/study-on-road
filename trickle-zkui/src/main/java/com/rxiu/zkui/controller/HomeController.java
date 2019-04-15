@@ -1,25 +1,15 @@
 package com.rxiu.zkui.controller;
 
-import com.google.common.base.Strings;
-import com.rxiu.zkui.core.PropertyPlaceHolder;
-import com.rxiu.zkui.core.ZkCuratorBuilder;
 import com.rxiu.zkui.core.security.Role;
-import com.rxiu.zkui.domain.ZkNode;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/10
  */
 @Controller
@@ -49,10 +39,5 @@ public class HomeController {
             userName = principal.toString();
         }
         return userName;
-    }
-
-
-    public Object getNode(String zkPath) {
-        return null;
     }
 }

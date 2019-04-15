@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/10
  */
 public class ZkCurator {
@@ -184,5 +184,18 @@ public class ZkCurator {
     public boolean hasChild(String nodePath) {
         List<String> children = getChildren(nodePath);
         return children != null && children.size() > 0;
+    }
+
+    public Object operater (Operator operator) {
+        start();
+        Object object = operator.call();
+        close();
+        return object;
+    }
+
+
+    @FunctionalInterface
+    public interface Operator<T> {
+        T call();
     }
 }

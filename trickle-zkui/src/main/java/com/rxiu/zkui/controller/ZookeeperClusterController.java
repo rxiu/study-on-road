@@ -1,6 +1,7 @@
 package com.rxiu.zkui.controller;
 
 import com.google.common.collect.Lists;
+import com.rxiu.zkui.common.ResponseResult;
 import com.rxiu.zkui.core.PropertyPlaceHolder;
 import com.rxiu.zkui.core.security.Role;
 import com.rxiu.zkui.domain.PageList;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/12
  */
 @Controller
@@ -52,10 +53,15 @@ public class ZookeeperClusterController {
         return pageList;
     }
 
+    /**
+     * todo 获取集群快照
+     * @param id
+     * @return
+     */
     @ResponseBody
     @PostMapping("/info")
     @Secured(value = {"ROLE_" + Role.ADMIN, "ROLE_" + Role.USER})
     public Object getClusterInfo(String id) {
-        return "aaaaaaa";
+        return ResponseResult.success("获取集群快照成功", "集群快照信息啊啊啊啊啊啊");
     }
 }

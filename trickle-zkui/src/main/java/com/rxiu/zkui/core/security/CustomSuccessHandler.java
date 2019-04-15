@@ -1,5 +1,7 @@
 package com.rxiu.zkui.core.security;
 
+import com.rxiu.zkui.core.exception.ExceptionResult;
+import com.rxiu.zkui.core.exception.BasicException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2019/4/10
  */
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -29,7 +31,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         if (response.isCommitted()) {
             System.out.println("Can't redirect");
-            return;
+            throw new BasicException(ExceptionResult.URL_REDIRECT_ERROR);
         }
         UserDetails user = (UserDetails) authentication.getPrincipal();
         request.getSession().setAttribute("authName", user.getUsername());
@@ -50,9 +52,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             roles.add(a.getAuthority());
         }
 
-        if (isDba(roles)) {
-            url = "/db";
-        } else if (isAdmin(roles) || isUser(roles)) {
+        if (isAdmin(roles) || isUser(roles)) {
             url = "/home";
         } else {
             url = "/accessDenied";
@@ -62,21 +62,14 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
+        if (roles.contains("ROLE_" + Role.USER)) {
             return true;
         }
         return false;
     }
 
     private boolean isAdmin(List<String> roles) {
-        if (roles.contains("ROLE_ADMIN")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDba(List<String> roles) {
-        if (roles.contains("ROLE_DBA")) {
+        if (roles.contains("ROLE_" + Role.ADMIN)) {
             return true;
         }
         return false;

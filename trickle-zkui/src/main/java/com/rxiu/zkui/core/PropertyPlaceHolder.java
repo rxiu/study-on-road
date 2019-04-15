@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * @author shenyuhang
+ * @author rxiu
  * @date 2018/07/20.
  **/
 public class PropertyPlaceHolder extends PropertyPlaceholderConfigurer {
