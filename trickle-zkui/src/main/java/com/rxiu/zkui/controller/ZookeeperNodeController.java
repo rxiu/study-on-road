@@ -3,9 +3,10 @@ package com.rxiu.zkui.controller;
 import com.google.common.base.Strings;
 import com.rxiu.zkui.common.ResponseResult;
 import com.rxiu.zkui.core.PropertyPlaceHolder;
-import com.rxiu.zkui.core.ZkCuratorBuilder;
 import com.rxiu.zkui.core.security.Role;
 import com.rxiu.zkui.domain.ZkNode;
+import com.rxiu.zkui.service.IZookeeperNodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +27,9 @@ import java.util.List;
 @RequestMapping("node")
 public class ZookeeperNodeController {
 
+    @Autowired
+    IZookeeperNodeService nodeService;
+
     @GetMapping
     @Secured(value = {"ROLE_" + Role.ADMIN, "ROLE_" + Role.USER})
     public String index() {
@@ -41,7 +45,7 @@ public class ZookeeperNodeController {
 
         String zkPath = Strings.isNullOrEmpty(request.getParameter("path")) ? "" : request.getParameter("path");
         String navigate = request.getParameter("navigate");
-        List<ZkNode> nodes = ZkCuratorBuilder.configure(zkServer, zkPath).getChildren();
+        List<ZkNode> nodes = nodeService.getNodeChildren(zkServer, zkPath);
         return ResponseResult.success("节点列表获取成功", nodes);
     }
 
@@ -52,7 +56,7 @@ public class ZookeeperNodeController {
         String zkNode = request.getParameter("zkNode");
         String zkServer = PropertyPlaceHolder.getString("zkServer");
 
-        ZkNode node = ZkCuratorBuilder.configure(zkServer, zkNode).getNode();
+        ZkNode node = nodeService.getNodeInfo(zkServer, zkNode);
         return ResponseResult.success("节点信息获取成功", node);
     }
 }

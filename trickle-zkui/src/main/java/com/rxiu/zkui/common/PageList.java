@@ -1,4 +1,4 @@
-package com.rxiu.zkui.domain;
+package com.rxiu.zkui.common;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +16,17 @@ public class PageList<T> implements Serializable {
     private int records;
 
     private List<T> rows;
+
+    public PageList() {
+
+    }
+
+    public PageList(int page, int total, int records, List<T> rows) {
+        this.page = page;
+        this.total = total;
+        this.records = records;
+        this.rows = rows;
+    }
 
     public int getPage() {
         return page;

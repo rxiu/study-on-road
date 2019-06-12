@@ -20,13 +20,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("rxiu").password(new BCryptPasswordEncoder().encode("123456")).roles(Role.USER);
-        auth.inMemoryAuthentication().withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles(Role.ADMIN);
-        auth.inMemoryAuthentication().withUser("braska").password(new BCryptPasswordEncoder().encode("123456")).roles(Role.ADMIN, Role.USER);
+        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles(Role.USER, Role.ADMIN);
+        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("braska").password(new BCryptPasswordEncoder().encode("123456")).roles(Role.USER);
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+                .and().authorizeRequests()
+                //.accessDecisionManager(new CustomAccessDecisionManager())
                 .antMatchers("/login", "/login/**").permitAll()
                 .antMatchers("/error").permitAll()
                 .antMatchers("/images/**", "/js/**", "/css/**", "/fonts/**", "/favicon.ico").permitAll()

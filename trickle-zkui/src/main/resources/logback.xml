@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration>
+    <property name="log_dir" value="logs" />
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
@@ -10,7 +11,7 @@
         <!--<File>/data/log/app.log</File>-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <FileNamePattern>api-gateway.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${log_dir}/trickle-zkui.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!-- keep 30 days' worth of history -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -18,8 +19,8 @@
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
         </encoder>
     </appender>
-
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+<!--
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>-->
 
     <root level="INFO">
         <!--<appender-ref ref="dailyRollingFileAppender" />-->

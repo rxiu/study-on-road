@@ -39,7 +39,7 @@ public class Source extends AbstractSource implements Configurable, PollableSour
   private KeedioFileFilter keedioFileFilter;
 
   /**
-   * Request keedioSource to the factory
+   * Request keedioSource to the session
    *
    * @param context
    * @return KeedioSource

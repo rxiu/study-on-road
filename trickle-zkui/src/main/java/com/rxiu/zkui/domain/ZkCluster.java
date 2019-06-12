@@ -1,23 +1,34 @@
 package com.rxiu.zkui.domain;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
+
 /**
  * zookeeper 集群
  * @author rxiu
  * @date 2019/4/12
  */
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "ZK_CLUSTER ")
 public class ZkCluster {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String hostList;
 
     private String code;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

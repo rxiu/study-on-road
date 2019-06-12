@@ -1,4 +1,4 @@
-package com.rxiu.zkui.core;
+package com.rxiu.zkui.core.curator;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
@@ -189,7 +189,7 @@ public class ZkCurator {
     public Object operater (Operator operator) {
         start();
         Object object = operator.call();
-        close();
+        //close();
         return object;
     }
 

@@ -34,6 +34,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             throw new BasicException(ExceptionResult.URL_REDIRECT_ERROR);
         }
         UserDetails user = (UserDetails) authentication.getPrincipal();
+        request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("authName", user.getUsername());
         request.getSession().setAttribute("authPwsd", user.getPassword());
         request.getSession().setAttribute("authRole", user.getAuthorities().toArray());

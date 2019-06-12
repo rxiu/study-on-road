@@ -7,7 +7,9 @@ package com.rxiu.zkui.core.exception;
 public enum ExceptionResult {
     URL_REDIRECT_ERROR("10000", "地址跳转错误"),
     CHECK_EXCEPTION("20000", "异常错误:%s"),
-    PARAMETER_NULL_EXCEPTION("30000", "参数[%s]不能为空!");
+    PARAMETER_NULL_EXCEPTION("30000", "参数[%s]不能为空!"),
+    ENTITY_EXISTS("30000", "[%s]不能重复!"),
+    ENTITY_NOT_EXISTS("30001", "%s不存在");
 
     String code, message;
     ExceptionResult(String code, String message) {

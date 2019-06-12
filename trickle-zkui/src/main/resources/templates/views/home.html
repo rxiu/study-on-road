@@ -13,7 +13,7 @@
 				<a href="javascript:;" data-url="/main"><i class="layui-icon" data-icon=""></i><cite>我的主页</cite></a>
 			</li>
 			<li class="layui-nav-item">
-				<a href="javascript:;" data-url="/cluster"><i class="layui-icon" data-icon=""></i><cite>zookeeper 集群</cite></a>
+				<a href="javascript:;" data-url="/cluster/index"><i class="layui-icon" data-icon=""></i><cite>zookeeper 集群</cite></a>
 			</li>
 			<li class="layui-nav-item">
 				<a href="javascript:;" data-url="/node"><i class="layui-icon" data-icon=""></i><cite>zookeper 节点</cite></a>
@@ -38,7 +38,7 @@
 			</li>
 		</ul>
 		<div class="layui-tab-content clildFrame">
-			<div class="layui-tab-item layui-show">
+			<div class="layui-tab-item layui-show" style="overflow: hidden;">
 				<iframe src="${basePath!}/main" class="frame"></iframe>
 			</div>
 		</div>
@@ -117,6 +117,7 @@
 			//如果不存在子级
 			if($(this).siblings().length == 0){
 				addTab($(this));
+				$('.layui-show').css("overflow", "hidden");
 				$('body').removeClass('site-mobile');  //移动端点击菜单关闭菜单层
 			}
 			$(this).parent("li").siblings().removeClass("layui-nav-itemed");

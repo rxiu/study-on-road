@@ -25,5 +25,6 @@
         <module>trickle-hibernate</module>
         <module>trickle-zabbix</module>
         <module>trickle-tools</module>
+        <module>trickle-zkui</module>
     </modules>
 </project>
