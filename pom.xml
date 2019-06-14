@@ -26,5 +26,6 @@
         <module>trickle-zabbix</module>
         <module>trickle-tools</module>
         <module>trickle-zkui</module>
+        <module>trickle-zookeeper</module>
     </modules>
 </project>
